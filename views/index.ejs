@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chat App</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    </head>
+    <body>
+
+      <div class="container">
+
+        <div class="row justify-content-around">
+            <div id="mario-chat" class="col-md-6">
+                <h3>Welcome</h3>
+                <div id="chat-window">
+                    <div id="output"> <ul> </ul></div>
+                    <div id="typing"></div>
+                </div>
+                <div id="one" class="row" style="margin: 3px">
+                    <input id="user" class="form-control col-md-9" type="text" placeholder="Username"  required/>
+                    <button id="send_user" type="submit" class="btn btn-primary col-md-2" style="margin-left: 5px; margin-right: 5px"> Send</button>  
+                </div>
+                
+                <div id="two" class="row" style="margin: 3px;display: none;">
+                    <input id="message" class="form-control col-md-9" type="text" placeholder="Message"  required/>
+                    <button id="send_msg" type="submit" class="btn btn-primary col-md-2" style="margin-left: 5px; margin-right: 5px"> Send</button>  
+                </div>
+                
+            </div>
+
+            <div id="online" class="col-md-4">
+              <h2>Online users</h2>
+              <div id="list"></div>
+            </div>
+
+        </div>
+          
+      </div>
+
+    </body>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/chat.js"></script>
+</html>
