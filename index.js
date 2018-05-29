@@ -10,7 +10,7 @@ mongoose.connect("mongodb://localhost/chat");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"));
 
-var server = app.listen(3000, function(){
+var server = app.listen(process.env.PORT, function(){
 	console.log("connect");
 });
 
@@ -22,11 +22,27 @@ app.get('/',function(req,res){
 
 
 io.on('connection', function(socket){
-	console.log("connected " + socket.id);
+	//console.log("connected " + socket);
 
+
+
+	socket.on('get-info',function(data){
+		newUser.findOne({s_id: socket.id},function(err,findUser){
+			if(err){
+				console.log(err);
+			}else{
+				if(findUser){
+					socket.emit('get-info', findUser);
+				}else{
+					// error msg
+				}
+			}
+		});
+	});
 
 	socket.on('online', function(msg){
-		newUser.create({name: msg.username,s_id: socket.id},function(err,success){
+
+		newUser.create({name: msg.username.toUpperCase(),s_id: socket.id},function(err,success){
 			if(err){
 				console.log(err);
 			}else{
@@ -41,8 +57,39 @@ io.on('connection', function(socket){
 	});
 
 
-	socket.on('typing-message', function(msg){
-		socket.broadcast.emit('typing-message',msg);
+	socket.on('private-message', function(msg){
+		newUser.findOne({name:msg.receiver},function(err,findUser){
+			if(err){
+				console.log(err);
+			}else{
+				if(findUser){
+					socket.broadcast.to(findUser.s_id).emit('private-message', msg);
+				}else{
+					// error msg
+				}
+			}
+		});
+		
+	});
+
+	socket.on('typing-message-all', function(data){
+		socket.broadcast.emit('typing-message-all',data);
+	});
+
+
+	socket.on('typing-message-one', function(msg){
+		newUser.findOne({name:msg.receiver},function(err,findUser){
+			if(err){
+				console.log(err);
+			}else{
+				if(findUser){
+					socket.broadcast.to(findUser.s_id).emit('typing-message-one', msg);
+				}else{
+					// error msg
+				}
+			}
+		});
+	
 	});
 
 	socket.on('online-list',function(data){
@@ -50,10 +97,7 @@ io.on('connection', function(socket){
 			if(err){
 				console.log(err);
 			}else{
-				 //allUser.forEach(function(user){
-				 	//console.log(user.name);
-				 	io.sockets.emit('online-list',allUser);
-				 //});
+				io.sockets.emit('online-list',allUser);
 			}
 		});
 
