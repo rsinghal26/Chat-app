@@ -65,10 +65,10 @@ io.on('connection', function(socket){
 			if(err){
 				console.log(err);
 			}else{
-				console.log("deleted");
+				//console.log("deleted");
 			}
 		});
-    	console.log('user disconnected' + socket.id);
+    	//console.log('user disconnected' + socket.id);
   	});
 });
 

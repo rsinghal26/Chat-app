@@ -3,11 +3,16 @@ $(function(){
 
 	var socket = io();
 	$("#send_user").click(function(){
-		socket.emit('online', {
-			username: $("#user").val()
-		});
-		$("#one").css("display", "none");
-		$("#two").css("display", "block");
+		if($("#user").val() != ""){
+			socket.emit('online', {
+				username: $("#user").val()
+			});
+			$("#one").css("display", "none");
+			$("#two").css("visibility", "visible");	
+		}else{
+			alert("Enter name");
+		}
+		
 	});
 
 	$("#send_msg").click(function() {
@@ -38,7 +43,7 @@ $(function(){
 
 	socket.on('chat-message',function(msg){
 		$("#typing").html('');		
-		$("#output").append("<p>" + msg.message + "</p>");
+		$("#output").append("<p> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
 	});
 
 	socket.on('typing-message', function(msg){
@@ -50,9 +55,8 @@ $(function(){
 		$("#list").html('');
 		data.forEach(function(user){
 			//console.log(user.name);
-			$("#list").append("<p>" +user.name + "</p>");
+			$("#list").append("<tr><td>*</td><td>" +user.name.toUpperCase() + "</td> <td><span  class='dot'></span></td></tr>");
 		});
-		
 	});
 
 
