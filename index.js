@@ -1,7 +1,6 @@
 var express  = require("express"),
 	app      = express(),
 	socket   = require("socket.io"),
-	bodyParser = require("body-parser"),
 	newUser  = require("./online"),
 	mongoose = require("mongoose");
 
