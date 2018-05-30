@@ -6,7 +6,6 @@ var express  = require("express"),
 
 app.set("view engine","ejs");
 mongoose.connect("mongodb://localhost/chat");
-app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"));
 
 var server = app.listen(process.env.PORT, function(){
