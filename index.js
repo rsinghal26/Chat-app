@@ -62,6 +62,7 @@ io.on('connection', function(socket){
 			}else{
 				if(findUser){
 					socket.broadcast.to(findUser.s_id).emit('private-message', msg);
+					socket.emit('private-message', msg);
 				}else{
 					// error msg
 				}

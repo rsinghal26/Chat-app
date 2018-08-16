@@ -91,8 +91,16 @@ $(function(){
 	});
 
 	socket.on('chat-message',function(msg){
-		$("#typing").html('');		
-		$("#output").append("<p> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
+		$("#typing").html('');
+	    // console.log(msg.username);
+	    // console.log(username);
+		if(msg.username.toUpperCase() == username.toUpperCase()){
+			// console.log("SDfsdfsdf");
+			$("#output").append("<p id='p1'>" + msg.message + "</p>");
+		}else{
+			$("#output").append("<p id='p2'> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
+		}
+		
 	});
 
 	socket.on('typing-message-all', function(data){
@@ -122,11 +130,14 @@ $(function(){
 
 	socket.on('private-message',function(msg){
 		$("#typing").html('');
-		console.log(msg);		
-		$("#output").append("<p> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
+		// console.log(msg);		
+		if(msg.username.toUpperCase() == username.toUpperCase()){
+			// console.log("SDfsdfsdf");
+			$("#output").append("<p class='text-right'>" + msg.message + "</p>");
+		}else{
+			$("#output").append("<p class='text-left'> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
+		}
 	});
-
-
 
 
 
