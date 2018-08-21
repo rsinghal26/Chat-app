@@ -43,7 +43,6 @@ $(function(){
 		if($("#message").val()!= "" && $("#receiver").val() != ""){
 			
 			var string = $("#receiver").val().toUpperCase();
-			//alert("you are in private " + string);
 			socket.emit('private-message',{
 				message: $("#message").val(),
 				username: $("#user").val(),
@@ -92,10 +91,7 @@ $(function(){
 
 	socket.on('chat-message',function(msg){
 		$("#typing").html('');
-	    // console.log(msg.username);
-	    // console.log(username);
 		if(msg.username.toUpperCase() == username.toUpperCase()){
-			// console.log("SDfsdfsdf");
 			$("#output").append("<p id='p1'>" + msg.message + "</p>");
 		}else{
 			$("#output").append("<p id='p2'> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
@@ -130,12 +126,10 @@ $(function(){
 
 	socket.on('private-message',function(msg){
 		$("#typing").html('');
-		// console.log(msg);		
 		if(msg.username.toUpperCase() == username.toUpperCase()){
-			// console.log("SDfsdfsdf");
-			$("#output").append("<p class='text-right'>" + msg.message + "</p>");
+			$("#output").append("<p id='p1'>" + msg.message + "</p>");
 		}else{
-			$("#output").append("<p class='text-left'> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
+			$("#output").append("<p id='p2'> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
 		}
 	});
 
