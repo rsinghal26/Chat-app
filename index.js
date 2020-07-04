@@ -5,10 +5,10 @@ var express  = require("express"),
 	mongoose = require("mongoose");
 
 app.set("view engine","ejs");
-mongoose.connect("mongodb://localhost/chat");
+mongoose.connect("mongodb://localhost/chat2");
 app.use(express.static(__dirname + "/public"));
 
-var server = app.listen(process.env.PORT, function(){
+var server = app.listen(3000, function(){
 	console.log("connect");
 });
 
@@ -108,7 +108,7 @@ io.on('connection', function(socket){
 			if(err){
 				console.log(err);
 			}else{
-				//console.log("deleted");
+				// console.log("deleted");
 			}
 		});
     	//console.log('user disconnected' + socket.id);
