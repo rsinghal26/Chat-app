@@ -43,7 +43,6 @@ $(function(){
 		if($("#message").val()!= "" && $("#receiver").val() != ""){
 			
 			var string = $("#receiver").val().toUpperCase();
-			//alert("you are in private " + string);
 			socket.emit('private-message',{
 				message: $("#message").val(),
 				username: $("#user").val(),
@@ -93,7 +92,6 @@ $(function(){
 	socket.on('chat-message',function(msg){
 		$("#typing").html('');
 		if(msg.username.toUpperCase() == username.toUpperCase()){
-			// console.log("SDfsdfsdf");
 			$("#output").append("<p id='p1'>" + msg.message + "</p>");
 		}else{
 			$("#output").append("<p id='p2'> <strong style='color:brown'>" + msg.username + ":</strong> " + msg.message + "</p>");
@@ -128,7 +126,6 @@ $(function(){
 
 	socket.on('private-message',function(msg){
 		$("#typing").html('');
-		// console.log(msg);		
 		if(msg.username.toUpperCase() == username.toUpperCase()){
 						
 			$("#output").append("<p id='p1'>" + msg.message + "</p>");
